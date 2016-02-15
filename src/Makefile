@@ -1,2 +1,5 @@
+SRC = common.ml opam_interface.ml arguments.ml package.ml install.ml tests.ml onpm.ml 
+
+
 all:
-	ocamlfind ocamlopt -package unix -linkpkg onpm.ml
+	ocamlfind ocamlopt -package str -package unix -package yojson -package oUnit -linkpkg $(SRC)
