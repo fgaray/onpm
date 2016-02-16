@@ -17,6 +17,23 @@ let run_opam_switch_list =
     read_all_command process
 
 
+let run_opam_switch_create_alias switch =
+    let process = open_process_in ("opam switch " ^ switch ^ " --alias-of node_modules") in
+    read_all_command process
+
+let run_opam_switch_change switch =
+    let process = open_process_in ("opam switch " ^ switch) in
+    read_all_command process
+
+let run_opam_install_package package =
+    let process = open_process_in ("opam install " ^ package) in
+    read_all_command process
+
+let run_opam_config_env =
+    let process = open_process_in "opam config env" in
+    read_all_command process
+
+
 let parse_output_switch_list xs =
     let parse_line item = 
         let name = take_while_string (neq ' ') item in
@@ -34,9 +51,13 @@ let parse_output_switch_list xs =
     List.map parse_line xs
 
 
+
 let switch_exists switch =
     let result = run_opam_switch_list in
     let parsed = parse_output_switch_list result in
     let named = List.filter (fun x -> x.origin = "node_modules") parsed in
-    print_list switch_list_to_string named;
-    ()
+    exists (fun x -> x.name = switch) named
+
+let create_switch switch =
+    let result = run_opam_switch_create_alias switch in
+    print_list id result

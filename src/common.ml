@@ -49,3 +49,18 @@ let rec drop_while_string fn s =
 let eq x y = x = y
 
 let neq x y = x <> y
+
+
+let id x = x
+
+
+let exists fu l = 
+    try
+        ignore (List.find fu l);
+        true
+    with
+        Not_found -> false
+
+
+let fst (x, y) = x
+let snd (x, y) = y

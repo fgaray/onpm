@@ -108,6 +108,8 @@ let test_parse_install test_ctxt =
         (Arguments.parse_arguments [|"install";|])
         (Arguments.Install Arguments.default_install_opts)
 
+        
+
 let suite = 
     "suite" >:::
         [ "we can find the name of the package" >:: test_json_name;
